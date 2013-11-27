@@ -2,7 +2,7 @@ import six
 
 from django.db import models, transaction
 from django.db.models import F, Max, Min
-from django.contrib.comments.models import Comment
+from django.contrib.comments.models import Comment, CommentManager
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -25,7 +25,7 @@ class MaxThreadLevelExceededException(Exception):
         return ugettext("Can not post comments over the thread level %{max_thread_level}") % {"max_thread_level": self.max_by_app}
 
 
-class XtdCommentManager(models.Manager):
+class XtdCommentManager(CommentManager):
     def for_app_models(self, *args):
         """Return XtdComments for pairs "app.model" given in args"""
         content_types = []
